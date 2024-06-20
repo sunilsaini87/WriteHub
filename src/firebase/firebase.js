@@ -1,13 +1,14 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyASXB1WPmN23DPdKMQcx-Ucir9v9KpUQZs",
-  authDomain: "writehub-523a3.firebaseapp.com",
-  projectId: "writehub-523a3",
-  storageBucket: "writehub-523a3.appspot.com",
-  messagingSenderId: "331232756670",
-  appId: "1:331232756670:web:20f348cb80f68f03e6efef",
-  measurementId: "G-XC4QC4TRP9",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
+// eslint-disable-next-line no-unused-vars
 const app = initializeApp(firebaseConfig);
