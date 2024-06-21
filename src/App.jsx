@@ -1,7 +1,14 @@
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home/Home";
+import Demo from "./components/Demo/Demo";
+
 function App() {
   return (
     <>
-      <h1 className="text-cyan-600">Hello</h1>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/demo" element={<Demo />} />
+      </Routes>
     </>
   );
 }
