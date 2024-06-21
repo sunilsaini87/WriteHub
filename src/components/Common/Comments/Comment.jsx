@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import { Blog } from "../../../Context/Context";
 import moment from "moment";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
@@ -78,13 +79,15 @@ const Comment = ({ item: comment, postId }) => {
                   <>
                     <button
                       onClick={() => setDrop(!drop)}
-                      className="text-2xl hover:opacity-70">
+                      className="text-2xl hover:opacity-70"
+                    >
                       <BiDotsHorizontalRounded />
                     </button>
                     <DropDown
                       showDrop={drop}
                       setShowDrop={setDrop}
-                      size="w-[10rem]">
+                      size="w-[10rem]"
+                    >
                       <Button
                         click={editCommentText}
                         title="Edit this response"
@@ -111,14 +114,16 @@ const Comment = ({ item: comment, postId }) => {
             value={editComment}
             onChange={(e) => setEditComment(e.target.value)}
             placeholder="Write your update text..."
-            className="w-full resize-none outline-none text-sm"></textarea>
+            className="w-full resize-none outline-none text-sm"
+          ></textarea>
           <div className="flex items-center justify-end gap-2">
             <button onClick={() => setIsEdit(false)} className="w-fit text-sm">
               Cancel
             </button>
             <button
               onClick={handleEdit}
-              className="btn !text-white !bg-green-700 !rounded-full !text-xs">
+              className="btn !text-white !bg-green-700 !rounded-full !text-xs"
+            >
               {loading ? "Updating..." : "Update"}
             </button>
           </div>
@@ -128,14 +133,30 @@ const Comment = ({ item: comment, postId }) => {
   );
 };
 
+Comment.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+    commentText: PropTypes.string.isRequired,
+    created: PropTypes.instanceOf(Date).isRequired,
+  }).isRequired,
+  postId: PropTypes.string.isRequired,
+};
+
 export default Comment;
 
 const Button = ({ click, title }) => {
   return (
     <button
       onClick={click}
-      className="p-2 hover:bg-gray-200 text-black/80 w-full text-sm text-left">
+      className="p-2 hover:bg-gray-200 text-black/80 w-full text-sm text-left"
+    >
       {title}
     </button>
   );
+};
+
+Button.propTypes = {
+  click: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
 };

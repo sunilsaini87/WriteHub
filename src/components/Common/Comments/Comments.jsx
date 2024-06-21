@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import Modal from "../../../utils/Modal";
 import { LiaTimesSolid } from "react-icons/lia";
 import { Blog } from "../../../Context/Context";
@@ -27,6 +28,7 @@ const Comments = ({ postId }) => {
     try {
       if (comment === "") {
         toast.error("The input must be filled.");
+        return;
       }
 
       const commentRef = collection(db, "posts", postId, "comments");
@@ -54,7 +56,8 @@ const Comments = ({ postId }) => {
         className={`fixed top-0 right-0 bottom-0 z-50 bg-white w-[22rem] shadows p-5
         overflow-y-auto transition-all duration-500
         ${showComment ? "translate-x-0" : "translate-x-[23rem]"}
-      `}>
+      `}
+      >
         {/* header  */}
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold">Responses({data.length})</h3>
@@ -77,14 +80,16 @@ const Comments = ({ postId }) => {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="What are your thoughts?"
-              className="w-full outline-none resize-none text-sm border px-2 pt-4"></textarea>
+              className="w-full outline-none resize-none text-sm border px-2 pt-4"
+            ></textarea>
             <div className="flex items-center justify-end gap-4 mt-[1rem]">
               <button onClick={() => setComment("")} className="text-sm">
                 Cancel
               </button>
               <button
                 onClick={writeComment}
-                className="btn !text-xs !bg-green-700 !text-white !rounded-full">
+                className="btn !text-xs !bg-green-700 !text-white !rounded-full"
+              >
                 Response
               </button>
             </div>
@@ -97,7 +102,7 @@ const Comments = ({ postId }) => {
             {data &&
               data.map((item, i) =>
                 loading ? (
-                  <Loading />
+                  <Loading key={i} />
                 ) : (
                   <Comment item={item} postId={postId} key={i} />
                 )
@@ -107,6 +112,10 @@ const Comments = ({ postId }) => {
       </section>
     </Modal>
   );
+};
+
+Comments.propTypes = {
+  postId: PropTypes.string.isRequired,
 };
 
 export default Comments;

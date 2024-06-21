@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import { BsThreeDots } from "react-icons/bs";
 import DropDown from "../../../../utils/DropDown";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +15,7 @@ const Actions = ({ postId, title, desc }) => {
     setShowDrop(!showDrop);
   };
 
-  const navigate = useNavigate(null);
+  const navigate = useNavigate();
 
   const handleEdit = () => {
     navigate(`/editPost/${postId}`);
@@ -38,13 +39,14 @@ const Actions = ({ postId, title, desc }) => {
       await deleteDoc(commentRef);
       await deleteDoc(savedPostRef);
 
-      toast.success("post has been removed");
+      toast.success("Post has been removed");
       setShowDrop(false);
       navigate("/");
     } catch (error) {
-      toast.success(error.message);
+      toast.error(error.message);
     }
   };
+
   return (
     <div className="relative">
       <button onClick={handleClick}>
@@ -58,6 +60,12 @@ const Actions = ({ postId, title, desc }) => {
   );
 };
 
+Actions.propTypes = {
+  postId: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  desc: PropTypes.string.isRequired,
+};
+
 export default Actions;
 
 const Button = ({ click, title }) => {
@@ -66,8 +74,14 @@ const Button = ({ click, title }) => {
       onClick={click}
       className={`p-2 hover:bg-gray-100 hover:text-black/80 w-full text-sm text-left
     ${title === "Delete Story" ? "text-red-600" : ""}
-    `}>
+    `}
+    >
       {title}
     </button>
   );
+};
+
+Button.propTypes = {
+  click: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
 };
