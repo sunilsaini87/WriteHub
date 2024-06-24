@@ -1,4 +1,3 @@
-import React from "react";
 import Loading from "../../Loading/Loading";
 import PostsCard from "./PostsCard";
 import { Blog } from "../../../Context/Context";

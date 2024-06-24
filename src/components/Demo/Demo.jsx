@@ -1,4 +1,3 @@
-import React from "react";
 import Banner from "./Banner";
 import Trending from "./Trending";
 import Posts from "../Common/Posts/Posts";

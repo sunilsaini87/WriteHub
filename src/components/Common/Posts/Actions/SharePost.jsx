@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import DropDown from "../../../../utils/DropDown";
 import { CiShare1 } from "react-icons/ci";
 import {
@@ -28,6 +29,7 @@ const SharePost = () => {
       setShowDrop(false);
     }
   };
+
   return (
     <div className="relative">
       <button onClick={() => setShowDrop(!showDrop)}>
@@ -56,9 +58,16 @@ const Button = ({ click, icon, title }) => {
     <button
       onClick={click}
       className="p-2 hover:bg-gray-200 hover:text-black/80 w-full text-sm text-left
-      flex items-center gap-2 cursor-pointer text-gray-500">
+      flex items-center gap-2 cursor-pointer text-gray-500"
+    >
       <span className="text-[1.2rem]">{icon}</span>
       {title}
     </button>
   );
+};
+
+Button.propTypes = {
+  click: PropTypes.func, // click is not always required
+  icon: PropTypes.node.isRequired, // icon is required
+  title: PropTypes.string.isRequired, // title is required
 };

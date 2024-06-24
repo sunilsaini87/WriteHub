@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BsMedium } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { LiaEditSolid } from "react-icons/lia";
@@ -40,6 +40,7 @@ const HomeHeader = () => {
       navigate(`/post/${postId}`);
       toast.success("Post has been updated");
     } catch (error) {
+      /* empty */
     } finally {
       setLoading(false);
     }
@@ -62,13 +63,15 @@ const HomeHeader = () => {
         <div className="flex items-center gap-3 sm:gap-7">
           <span
             onClick={() => setSearchModal(true)}
-            className="flex sm:hidden text-3xl text-gray-300 cursor-pointer">
+            className="flex sm:hidden text-3xl text-gray-300 cursor-pointer"
+          >
             <CiSearch />
           </span>
           {pathname === "/write" ? (
             <button
               onClick={() => setPublish(true)}
-              className="btn !bg-green-700 !py-1 !text-white !rounded-full">
+              className="btn !bg-green-700 !py-1 !text-white !rounded-full"
+            >
               Publish
             </button>
           ) : editPath === "editPost" ? (
@@ -76,13 +79,15 @@ const HomeHeader = () => {
               onClick={handleEdit}
               className={`btn !bg-green-700 !py-1 !text-white !rounded-full
               ${loading ? "opacity-40" : ""}
-              `}>
+              `}
+            >
               {loading ? "Updating..." : "Save and Update"}
             </button>
           ) : (
             <Link
               to="/write"
-              className="hidden md:flex items-center gap-1 text-gray-500">
+              className="hidden md:flex items-center gap-1 text-gray-500"
+            >
               <span className="text-3xl">
                 <LiaEditSolid />
               </span>
@@ -106,7 +111,8 @@ const HomeHeader = () => {
               <div
                 className={`${
                   modal ? "visible opacity-100%" : "invisible opacity-0"
-                } transition-all duration-100`}>
+                } transition-all duration-100`}
+              >
                 <UserModal setModal={setModal} />
               </div>
             </Modal>

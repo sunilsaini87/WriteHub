@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, increment, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
@@ -59,6 +59,7 @@ const SinglePost = () => {
             const getUser = await getDoc(userRef);
 
             if (getUser.exists()) {
+              // eslint-disable-next-line no-unused-vars
               const { created, ...rest } = getUser.data();
               setPost({ ...postData, ...rest, id: postId });
             }

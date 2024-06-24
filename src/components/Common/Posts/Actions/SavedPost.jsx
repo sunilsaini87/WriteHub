@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import { CiSaveDown2 } from "react-icons/ci";
 import { Blog } from "../../../../Context/Context";
 import { deleteDoc, doc, setDoc } from "firebase/firestore";
@@ -12,8 +13,9 @@ const SavedPost = ({ post }) => {
   const { data } = useSingleFetch("users", post?.userId, "savePost");
 
   useEffect(() => {
-    setIsSaved(data && data?.find((item) => item.id === currentUser?.uid)) !==
-      -1;
+    setIsSaved(
+      data && data?.find((item) => item.id === currentUser?.uid) !== -1
+    );
   }, [data, post?.id]);
 
   const handleSave = async () => {
@@ -43,6 +45,7 @@ const SavedPost = ({ post }) => {
       toast.error(error.message);
     }
   };
+
   return (
     <div>
       <button onClick={handleSave} className="hover:opacity-60">
@@ -54,6 +57,17 @@ const SavedPost = ({ post }) => {
       </button>
     </div>
   );
+};
+
+SavedPost.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    createdAt: PropTypes.number,
+    // Add other properties as needed
+  }).isRequired,
 };
 
 export default SavedPost;

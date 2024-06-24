@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import { PiHandsClappingDuotone } from "react-icons/pi";
 import { Blog } from "../../../../Context/Context";
 import { deleteDoc, doc, setDoc } from "firebase/firestore";
@@ -37,6 +38,7 @@ const Like = ({ postId }) => {
       toast.error(error.message);
     }
   };
+
   return (
     <button onClick={handleLike} className="flex items-center gap-1 text-sm">
       <PiHandsClappingDuotone
@@ -45,6 +47,10 @@ const Like = ({ postId }) => {
       <span>{formatNum(data?.length)}</span>
     </button>
   );
+};
+
+Like.propTypes = {
+  postId: PropTypes.string.isRequired,
 };
 
 export default Like;

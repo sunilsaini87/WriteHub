@@ -1,4 +1,3 @@
-import React from "react";
 import { discover, discoverActions } from "../../data";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +12,8 @@ const Discover = () => {
             <button
               onClick={() => navigate(`/filter/${item.toLowerCase()}`)}
               key={i}
-              className="bg-gray-200 py-2 px-3 text-sm rounded-full">
+              className="bg-gray-200 py-2 px-3 text-sm rounded-full"
+            >
               {item}
             </button>
           ))}

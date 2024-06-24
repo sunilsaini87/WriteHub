@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { Blog } from "../../Context/Context";
 import Loading from "../Loading/Loading";

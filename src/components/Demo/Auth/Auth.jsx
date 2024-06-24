@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import Modal from "../../../utils/Modal";
 import { LiaTimesSolid } from "react-icons/lia";
 import { FcGoogle } from "react-icons/fc";
@@ -47,10 +48,12 @@ const Auth = ({ modal, setModal }) => {
       <section
         className={`z-50 fixed top-0 bottom-0 left-0 md:left-[10rem]
         overflow-auto right-0 md:right-[10rem] bg-white shadows transition-all duration-500
-        ${modal ? "visible opacity-100" : "invisible opacity-0"}`}>
+        ${modal ? "visible opacity-100" : "invisible opacity-0"}`}
+      >
         <button
           onClick={() => setModal(false)}
-          className="absolute top-8 right-8 text-2xl hover:opacity-50">
+          className="absolute top-8 right-8 text-2xl hover:opacity-50"
+        >
           <LiaTimesSolid />
         </button>
         <div className="flex flex-col justify-center items-center gap-[3rem]">
@@ -79,7 +82,8 @@ const Auth = ({ modal, setModal }) => {
                 {createUser ? "Already have an account" : "No Account"}
                 <button
                   onClick={() => setCreateUser(!createUser)}
-                  className="text-green-600 hover:text-green-700 font-bold ml-1">
+                  className="text-green-600 hover:text-green-700 font-bold ml-1"
+                >
                   {createUser ? "Sign In" : "Create one"}
                 </button>
               </p>
@@ -99,6 +103,12 @@ const Auth = ({ modal, setModal }) => {
   );
 };
 
+// PropTypes for Auth component
+Auth.propTypes = {
+  modal: PropTypes.bool.isRequired,
+  setModal: PropTypes.func.isRequired,
+};
+
 export default Auth;
 
 const Button = ({ icon, text, click }) => {
@@ -106,8 +116,16 @@ const Button = ({ icon, text, click }) => {
     <button
       onClick={click}
       className="flex items-center gap-10 sm:w-[20rem] border border-black
-        px-3 py-2 rounded-full">
+        px-3 py-2 rounded-full"
+    >
       {icon} {text}
     </button>
   );
+};
+
+// PropTypes for Button component
+Button.propTypes = {
+  icon: PropTypes.node.isRequired,
+  text: PropTypes.string.isRequired,
+  click: PropTypes.func.isRequired,
 };
