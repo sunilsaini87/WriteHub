@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types"; // Import prop-types
 import Modal from "../../../utils/Modal";
 import { LiaTimesSolid } from "react-icons/lia";
 import { toast } from "react-toastify";
@@ -9,7 +10,6 @@ import { doc, updateDoc } from "firebase/firestore";
 const EditProfile = ({ editModal, setEditModal, getUserData }) => {
   const imgRef = useRef(null);
   const [imgUrl, setImgUrl] = useState("");
-  // loading must be implemented in the button
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     username: "",
@@ -22,7 +22,6 @@ const EditProfile = ({ editModal, setEditModal, getUserData }) => {
     imgRef.current.click();
   };
 
-  // if there is data inside our database
   useEffect(() => {
     if (getUserData) {
       setForm(getUserData);
@@ -31,7 +30,6 @@ const EditProfile = ({ editModal, setEditModal, getUserData }) => {
     }
   }, [getUserData]);
 
-  // save form
   const saveForm = async () => {
     if (form["username"] === "" || form["bio"] === "") {
       toast.error("All inputs are required!!!");
@@ -65,15 +63,14 @@ const EditProfile = ({ editModal, setEditModal, getUserData }) => {
     <Modal modal={editModal} setModal={setEditModal}>
       <div
         className="center w-[95%] md:w-[45rem] bg-white mx-auto shadows
-        my-[1rem] z-20 mb-[3rem] p-[2rem]">
-        {/* head  */}
+        my-[1rem] z-20 mb-[3rem] p-[2rem]"
+      >
         <div className="flex items-center justify-between">
           <h2 className="font-bold text-xl">Profile information</h2>
           <button onClick={() => setEditModal(false)} className="text-xl">
             <LiaTimesSolid />
           </button>
         </div>
-        {/* body  */}
         <section className="mt-6">
           <p className="pb-3 text-sm text-gray-500">Photo</p>
           <div className="flex gap-[2rem]">
@@ -110,7 +107,6 @@ const EditProfile = ({ editModal, setEditModal, getUserData }) => {
             </div>
           </div>
         </section>
-        {/* Profile edit form  */}
         <section className="pt-[1rem] text-sm">
           <label className="pb-3 block" htmlFor="">
             Name*
@@ -124,7 +120,7 @@ const EditProfile = ({ editModal, setEditModal, getUserData }) => {
             maxLength={50}
           />
           <p className="text-sm text-gray-600 pt-2">
-            Appears on your Profile page, as your byline, and in your responses.
+            Appears on your Profile page, as your byline, and in your responses.{" "}
             {form.username.length}/50
           </p>
           <section className="pt-[1rem] text-sm">
@@ -141,11 +137,11 @@ const EditProfile = ({ editModal, setEditModal, getUserData }) => {
             />
             <p className="text-sm text-gray-600 pt-2">
               Appears on your Profile and next to your stories.{" "}
-              {form.bio.length}/160
+              {form.bio.length}
+              /160
             </p>
           </section>
         </section>
-        {/* foot  */}
         <div className="flex items-center justify-end gap-4 pt-[2rem]">
           <button onClick={() => setEditModal(false)} className={btn}>
             Cancel
@@ -154,13 +150,25 @@ const EditProfile = ({ editModal, setEditModal, getUserData }) => {
             onClick={saveForm}
             className={`${btn} bg-green-800 text-white ${
               loading ? "opacity-50" : ""
-            }`}>
+            }`}
+          >
             Save
           </button>
         </div>
       </div>
     </Modal>
   );
+};
+
+EditProfile.propTypes = {
+  editModal: PropTypes.bool.isRequired,
+  setEditModal: PropTypes.func.isRequired,
+  getUserData: PropTypes.shape({
+    username: PropTypes.string,
+    userImg: PropTypes.string,
+    bio: PropTypes.string,
+    userId: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default EditProfile;

@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types"; // Import prop-types
 import Loading from "../../../Loading/Loading";
 import PostsCard from "../../../Common/Posts/PostsCard";
 import { Blog } from "../../../../Context/Context";
@@ -25,6 +25,13 @@ const ProfileHome = ({ getUserData }) => {
       )}
     </div>
   );
+};
+
+ProfileHome.propTypes = {
+  getUserData: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+  }).isRequired, // Ensure getUserData is an object with the specified shape and is required
 };
 
 export default ProfileHome;

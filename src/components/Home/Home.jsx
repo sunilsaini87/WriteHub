@@ -1,4 +1,3 @@
-import React from "react";
 import Posts from "../Common/Posts/Posts";
 import Follow from "./UserToFollow/Follow";
 

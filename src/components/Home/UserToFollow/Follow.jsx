@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Blog } from "../../../Context/Context";
 import FollowBtn from "./FollowBtn";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +23,8 @@ const Follow = () => {
             <div key={i} className="flex items-start gap-2 my-4">
               <div
                 onClick={() => navigate("/profile" + "/" + userId)}
-                className="flex-1 flex items-center gap-2 cursor-pointer">
+                className="flex-1 flex items-center gap-2 cursor-pointer"
+              >
                 <img
                   className="w-[3rem] h-[3rem] object-cover gap-2 cursor-pointer rounded-full"
                   src={userImg}
@@ -45,7 +46,8 @@ const Follow = () => {
           onClick={() =>
             setCount((prev) => users.length < allUsers?.length && prev + 3)
           }
-          className="mb-3 text-green-900 text-sm hover:underline">
+          className="mb-3 text-green-900 text-sm hover:underline"
+        >
           Load for more users
         </button>
       )}

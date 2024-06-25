@@ -2,12 +2,13 @@ import {
   collection,
   doc,
   getDoc,
+  // eslint-disable-next-line no-unused-vars
   getDocs,
   onSnapshot,
   orderBy,
   query,
 } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../../firebase/firebase";
 
 const useFetch = (collectionName) => {
@@ -28,6 +29,7 @@ const useFetch = (collectionName) => {
             const getUser = await getDoc(userRef);
 
             if (getUser.exists()) {
+              // eslint-disable-next-line no-unused-vars
               const { created, ...rest } = getUser.data();
               return { ...postItems, ...rest };
             }

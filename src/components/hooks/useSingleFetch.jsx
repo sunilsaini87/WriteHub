@@ -1,5 +1,5 @@
 import { collection, onSnapshot, query } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../../firebase/firebase";
 
 const useSingleFetch = (collectionName, id, subCol) => {

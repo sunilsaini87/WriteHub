@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types"; // Import prop-types
 import useSingleFetch from "../../../hooks/useSingleFetch";
 import { Blog } from "../../../../Context/Context";
 import Loading from "../../../Loading/Loading";
@@ -35,6 +35,13 @@ const ProfileLists = ({ getUserData }) => {
   );
 };
 
+ProfileLists.propTypes = {
+  getUserData: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
 export default ProfileLists;
 
 const PrivateLists = ({ username }) => {
@@ -48,4 +55,8 @@ const PrivateLists = ({ username }) => {
       </span>
     </div>
   );
+};
+
+PrivateLists.propTypes = {
+  username: PropTypes.string.isRequired,
 };

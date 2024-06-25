@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ReactQuill from "react-quill";
 import Preview from "./Preview";
 import { Blog } from "../../../Context/Context";
@@ -26,7 +26,8 @@ const Write = () => {
       <div
         className={`${
           publish ? "visible opacity-100" : "invisible opacity-0"
-        } transition-all duration-200`}>
+        } transition-all duration-200`}
+      >
         <Preview
           setPublish={setPublish}
           description={description}

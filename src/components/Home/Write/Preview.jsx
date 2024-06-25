@@ -1,6 +1,7 @@
+import { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import { addDoc, collection } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import React, { useEffect, useRef, useState } from "react";
 import { LiaTimesSolid } from "react-icons/lia";
 import ReactQuill from "react-quill";
 import TagsInput from "react-tagsinput";
@@ -47,15 +48,15 @@ const Preview = ({ setPublish, description, title }) => {
 
       if (preview.title.length < 15) {
         toast.error("Title must be at least 15 letters");
+        return;
       }
 
       const collections = collection(db, "posts");
 
-      let url;
+      let url = "";
       if (imageUrl) {
         const storageRef = ref(storage, `image/${preview.photo.name}`);
-        await uploadBytes(storageRef, preview?.photo);
-
+        await uploadBytes(storageRef, preview.photo);
         url = await getDownloadURL(storageRef);
       }
 
@@ -64,10 +65,11 @@ const Preview = ({ setPublish, description, title }) => {
         title: preview.title,
         desc,
         tags,
-        postImg: url || "",
+        postImg: url,
         created: Date.now(),
         pageViews: 0,
       });
+
       toast.success("Post has been added");
       navigate("/");
       setPublish(false);
@@ -81,23 +83,24 @@ const Preview = ({ setPublish, description, title }) => {
       setLoading(false);
     }
   };
+
   return (
     <section className="absolute inset-0 bg-white z-30">
       <div className="size my-[2rem]">
         <span
           onClick={() => setPublish(false)}
-          className="absolute right-[1rem] md:right-[5rem] top-[3rem] text-2xl cursor-pointer">
+          className="absolute right-[1rem] md:right-[5rem] top-[3rem] text-2xl cursor-pointer"
+        >
           <LiaTimesSolid />
         </span>
-        {/* preview the text  */}
         <div className="mt-[8rem] flex flex-col md:flex-row gap-10">
           <div className="flex-[1]">
             <h3>Story Preview</h3>
             <div
               style={{ backgroundImage: `url(${imageUrl})` }}
               onClick={handleClick}
-              className="w-full h-[200px] object-cover bg-gray-100 my-3 grid 
-                place-items-center cursor-pointer bg-cover bg-no-repeat ">
+              className="w-full h-[200px] object-cover bg-gray-100 my-3 grid place-items-center cursor-pointer bg-cover bg-no-repeat"
+            >
               {!imageUrl && "Add Image"}
             </div>
             <input
@@ -143,7 +146,8 @@ const Preview = ({ setPublish, description, title }) => {
             <TagsInput value={tags} onChange={setTags} />
             <button
               onClick={handleSubmit}
-              className="btn !bg-green-800 !w-fit !text-white !rounded-full">
+              className="btn !bg-green-800 !w-fit !text-white !rounded-full"
+            >
               {loading ? "Submitting..." : "Publish Now"}
             </button>
           </div>
@@ -151,6 +155,12 @@ const Preview = ({ setPublish, description, title }) => {
       </div>
     </section>
   );
+};
+
+Preview.propTypes = {
+  setPublish: PropTypes.func.isRequired,
+  description: PropTypes.string,
+  title: PropTypes.string,
 };
 
 export default Preview;

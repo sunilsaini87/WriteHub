@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Blog } from "../../../Context/Context";
 import { db } from "../../../firebase/firebase";
 import { toast } from "react-toastify";
@@ -10,6 +11,7 @@ const FollowBtn = ({ userId }) => {
   const [isFollowed, setIsFollowed] = useState(false);
   const { currentUser } = Blog();
 
+  // eslint-disable-next-line no-unused-vars
   const { data, loading } = useSingleFetch(
     "users",
     currentUser?.uid,
@@ -59,11 +61,16 @@ const FollowBtn = ({ userId }) => {
         className={`${
           pathname === "/" ? "border border-black" : ""
         } px-3 py-[0.2rem] rounded-full
-        ${isFollowed ? "text-gray-500 border-none" : ""}`}>
+        ${isFollowed ? "text-gray-500 border-none" : ""}`}
+      >
         {isFollowed ? "Following" : "Follow"}
       </button>
     </>
   );
+};
+
+FollowBtn.propTypes = {
+  userId: PropTypes.string.isRequired,
 };
 
 export default FollowBtn;

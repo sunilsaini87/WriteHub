@@ -1,29 +1,45 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { CiSearch } from "react-icons/ci";
 import Modal from "../../../utils/Modal";
 import { Blog } from "../../../Context/Context";
 import { useNavigate } from "react-router-dom";
+import { debounce } from "lodash";
 
 const Search = ({ modal, setModal }) => {
   const [search, setSearch] = useState("");
   const { postData } = Blog();
   const navigate = useNavigate();
 
-  // Filter posts based on search input
-  const searchData = postData?.filter((post) =>
-    post.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const [filteredPosts, setFilteredPosts] = useState([]);
+
+  useEffect(() => {
+    const debouncedFilter = debounce(() => {
+      if (search.trim() !== "") {
+        const filtered = postData?.filter((post) =>
+          post.title.toLowerCase().includes(search.toLowerCase())
+        );
+        setFilteredPosts(filtered);
+      } else {
+        setFilteredPosts([]);
+      }
+    }, 300);
+
+    debouncedFilter();
+
+    return () => {
+      debouncedFilter.cancel();
+    };
+  }, [search, postData]);
 
   return (
     <Modal modal={modal} setModal={setModal}>
       <div
-        className={`absolute sm:relative right-4 left-4 top-[4rem] sm:left-0 sm:top-0
-        ${
+        className={`absolute sm:relative right-4 left-4 top-[4rem] sm:left-0 sm:top-0 ${
           modal
             ? "visible opacity-100"
             : "invisible sm:visible sm:opacity-100 opacity-0"
-        }
-        transition-all duration-100`}
+        } transition-all duration-100`}
       >
         <div className="flex items-center gap-1 bg-gray-100 px-2 rounded-full relative z-10">
           <span className="text-2xl text-gray-400">
@@ -35,12 +51,13 @@ const Search = ({ modal, setModal }) => {
             className="bg-transparent outline-none py-[0.7rem] text-sm w-full"
             type="text"
             placeholder="Search Medium"
+            aria-label="Search Medium"
           />
           {search !== "" && (
             <div className="absolute right-0 left-0 top-full bg-white shadow rounded-md">
-              {searchData.length > 0 ? (
+              {filteredPosts.length > 0 ? (
                 <>
-                  {searchData.map((post, index) => (
+                  {filteredPosts.map((post) => (
                     <div
                       key={post.id}
                       onClick={() => {
@@ -69,6 +86,11 @@ const Search = ({ modal, setModal }) => {
       </div>
     </Modal>
   );
+};
+
+Search.propTypes = {
+  modal: PropTypes.bool.isRequired,
+  setModal: PropTypes.func.isRequired,
 };
 
 export default Search;

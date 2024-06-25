@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ProfileHome from "./Activities/ProfileHome";
 import ProfileLists from "./Activities/ProfileLists";
 import ProfileAbout from "./Activities/ProfileAbout";
@@ -62,7 +62,8 @@ const Profile = () => {
                 ? "border-b border-gray-500"
                 : ""
             }
-            `}>
+            `}
+            >
               <button onClick={() => setCurrentActive(item)}>
                 {item.title}
               </button>
@@ -78,7 +79,8 @@ const Profile = () => {
       <button
         onClick={() => setModal(true)}
         className="fixed top-[8rem] right-0 w-[2rem] h-[2rem] bg-black text-white
-        grid place-items-center md:hidden">
+        grid place-items-center md:hidden"
+      >
         <IoSettingsSharp />
       </button>
       {/* user details  */}
@@ -87,12 +89,14 @@ const Profile = () => {
           className={`flex-[1] border-l border-gray-300 p-[2rem] z-10
         fixed right-0 bottom-0 top-0 w-[18rem] bg-white md:sticky
         ${modal ? "translate-x-0" : "translate-x-[100%] md:translate-x-0"}
-        transition-all duration-500`}>
+        transition-all duration-500`}
+        >
           {/* icons to close out modal  */}
           <div className="pb-4 text-right">
             <button
               onClick={() => setModal(false)}
-              className="inline-block md:hidden">
+              className="inline-block md:hidden"
+            >
               <LiaTimesSolid />
             </button>
           </div>
@@ -112,7 +116,8 @@ const Profile = () => {
             {currentUser?.uid === getUserData?.userId && (
               <button
                 onClick={() => setEditModal(true)}
-                className="text-green-700 pt-6 text-sm w-fit">
+                className="text-green-700 pt-6 text-sm w-fit"
+              >
                 Edit Profile
               </button>
             )}
