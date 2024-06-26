@@ -1,4 +1,3 @@
-import PropTypes from "prop-types"; // Import PropTypes
 import { readTime } from "../../../utils/helper";
 import moment from "moment/moment";
 import SavedPost from "./Actions/SavedPost";
@@ -52,18 +51,6 @@ const PostsCard = ({ post }) => {
       </div>
     </section>
   );
-};
-
-PostsCard.propTypes = {
-  post: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    desc: PropTypes.string.isRequired,
-    created: PropTypes.number.isRequired,
-    postImg: PropTypes.string,
-    id: PropTypes.string.isRequired,
-    userId: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default PostsCard;

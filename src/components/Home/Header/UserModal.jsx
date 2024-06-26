@@ -1,9 +1,8 @@
 import PropTypes from "prop-types";
-import { LiaUserSolid } from "react-icons/lia";
+import { LiaUserSolid, LiaEditSolid } from "react-icons/lia";
 import { MdOutlineLocalLibrary } from "react-icons/md";
 import { BiSpreadsheet } from "react-icons/bi";
 import { HiOutlineChartBar } from "react-icons/hi";
-import { LiaEditSolid } from "react-icons/lia";
 import { Blog } from "../../../Context/Context";
 import { Link, useNavigate } from "react-router-dom";
 import { secretEmail } from "../../../utils/helper";
@@ -36,22 +35,19 @@ const UserModal = ({ setModal }) => {
     },
   ];
 
-  const navigate = useNavigate(null);
-  const logout = async () => {
+  const navigate = useNavigate();
+  const handleLogout = async () => {
     try {
       await signOut(auth);
       navigate("/demo");
-      toast.success("User has be logged out");
+      toast.success("User has been logged out");
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   return (
-    <section
-      className="absolute w-[18rem] p-6 bg-white right-0 top-[100%]
-    shadows rounded-md z-50 text-gray-500"
-    >
+    <section className="absolute w-[18rem] p-6 bg-white right-0 top-[100%] shadow rounded-md z-50 text-gray-500">
       <Link
         to="/write"
         className="flex md:hidden items-center gap-1 text-gray-500"
@@ -75,7 +71,7 @@ const UserModal = ({ setModal }) => {
         ))}
       </div>
       <button
-        onClick={logout}
+        onClick={handleLogout}
         className="flex flex-col pt-5 cursor-pointer hover:text-black/70"
       >
         Sign Out

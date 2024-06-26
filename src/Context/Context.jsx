@@ -1,10 +1,9 @@
+import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { useContext, useEffect, useState, createContext } from "react";
-import PropTypes from "prop-types";
 import { auth, db } from "../firebase/firebase";
-import Loading from "../components/Loading/Loading";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import useFetch from "../components/hooks/useFetch";
+import Loading from "../components/Loading/Loading";
 
 const BlogContext = createContext();
 
@@ -15,11 +14,11 @@ const Context = ({ children }) => {
   const [allUsers, setAllUsers] = useState([]);
   const [showComment, setShowComment] = useState(false);
   const [commentLength, setCommentLength] = useState(0);
-  const [authModel, setAuthModel] = useState(false);
   const [updateData, setUpdateData] = useState({});
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [publish, setPublish] = useState(false);
+  const [authModel, setAuthModel] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -32,8 +31,8 @@ const Context = ({ children }) => {
 
   useEffect(() => {
     const getUsers = () => {
-      const postRef = query(collection(db, "users"));
-      onSnapshot(postRef, (snapshot) => {
+      const usersRef = collection(db, "users");
+      const unsubscribe = onSnapshot(usersRef, (snapshot) => {
         setAllUsers(
           snapshot.docs.map((doc) => ({
             ...doc.data(),
@@ -42,7 +41,10 @@ const Context = ({ children }) => {
         );
         setUserLoading(false);
       });
+
+      return () => unsubscribe();
     };
+
     getUsers();
   }, []);
 
@@ -76,10 +78,6 @@ const Context = ({ children }) => {
       {loading ? <Loading /> : children}
     </BlogContext.Provider>
   );
-};
-
-Context.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default Context;

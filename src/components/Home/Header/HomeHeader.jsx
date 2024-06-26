@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BsMedium } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { LiaEditSolid } from "react-icons/lia";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -51,14 +52,11 @@ const HomeHeader = () => {
       <div className="size h-[60px] flex items-center justify-between">
         {/* left side  */}
         <div className="flex items-center gap-3">
-          <Link to="/" className="flex items-center">
-            <img
-              src="/WriteHub.png"
-              className="w-32 sm:w-40 md:w-48 lg:w-56 h-auto rounded-lg"
-              alt="WriteHub logo"
-            />
+          <Link to={"/"}>
+            <span className="text-5xl">
+              <BsMedium />
+            </span>
           </Link>
-
           <Search modal={searchModal} setModal={setSearchModal} />
         </div>
         {/* right side  */}
