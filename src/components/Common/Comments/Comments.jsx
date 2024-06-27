@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types";
 import Modal from "../../../utils/Modal";
 import { LiaTimesSolid } from "react-icons/lia";
 import { Blog } from "../../../Context/Context";
@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 import useSingleFetch from "../../hooks/useSingleFetch";
-import Loading from "../../Loading/Loading";
 import Comment from "./Comment";
 
 const Comments = ({ postId }) => {
@@ -22,7 +21,7 @@ const Comments = ({ postId }) => {
 
   const getUserData = allUsers.find((user) => user.id === currentUser?.uid);
 
-  const { data, loading } = useSingleFetch("posts", postId, "comments");
+  const { data } = useSingleFetch("posts", postId, "comments");
 
   const writeComment = async () => {
     try {
@@ -100,13 +99,9 @@ const Comments = ({ postId }) => {
         ) : (
           <div className="border-t py-4 mt-8 flex flex-col gap-8">
             {data &&
-              data.map((item, i) =>
-                loading ? (
-                  <Loading key={i} />
-                ) : (
-                  <Comment item={item} postId={postId} key={i} />
-                )
-              )}
+              data.map((item, i) => (
+                <Comment item={item} postId={postId} key={i} />
+              ))}
           </div>
         )}
       </section>

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase/firebase";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import useFetch from "../components/hooks/useFetch";
 import Loading from "../components/Loading/Loading";
 

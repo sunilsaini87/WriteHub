@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types";
 import { BsThreeDots } from "react-icons/bs";
 import DropDown from "../../../../utils/DropDown";
 import { useNavigate } from "react-router-dom";

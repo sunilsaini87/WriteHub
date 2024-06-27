@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types";
 import { PiHandsClappingDuotone } from "react-icons/pi";
 import { Blog } from "../../../../Context/Context";
 import { deleteDoc, doc, setDoc } from "firebase/firestore";

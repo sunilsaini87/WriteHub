@@ -2,8 +2,6 @@ import {
   collection,
   doc,
   getDoc,
-  // eslint-disable-next-line no-unused-vars
-  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -12,8 +10,9 @@ import { useEffect, useState } from "react";
 import { db } from "../../firebase/firebase";
 
 const useFetch = (collectionName) => {
-  const [data, setData] = useState("");
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const getDatas = async () => {
       const postRef = query(
@@ -23,15 +22,16 @@ const useFetch = (collectionName) => {
 
       const unsubscribe = onSnapshot(postRef, async (snapshot) => {
         const postData = await Promise.all(
-          snapshot.docs.map(async (docs) => {
-            const postItems = { ...docs.data(), id: docs.id };
-            const userRef = doc(db, "users", postItems?.userId);
+          snapshot.docs.map(async (doc) => {
+            const postItems = { ...doc.data(), id: doc.id };
+            const userRef = doc(db, "users", postItems.userId);
             const getUser = await getDoc(userRef);
 
             if (getUser.exists()) {
-              // eslint-disable-next-line no-unused-vars
               const { created, ...rest } = getUser.data();
               return { ...postItems, ...rest };
+            } else {
+              return postItems; // Return postItems if user doesn't exist
             }
           })
         );
@@ -44,6 +44,7 @@ const useFetch = (collectionName) => {
 
     getDatas();
   }, [collectionName]);
+
   return {
     data,
     loading,

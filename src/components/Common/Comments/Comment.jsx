@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types";
 import { Blog } from "../../../Context/Context";
 import moment from "moment";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
