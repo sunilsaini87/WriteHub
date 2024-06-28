@@ -2,11 +2,7 @@ import PostsCard from "./PostsCard";
 import { Blog } from "../../../Context/Context";
 
 const Posts = () => {
-  const { postData, postLoading } = Blog();
-
-  if (postLoading) {
-    return <p>Loading posts....</p>;
-  }
+  const { postData } = Blog();
 
   return (
     <section className="flex flex-col gap-[2.5rem]">

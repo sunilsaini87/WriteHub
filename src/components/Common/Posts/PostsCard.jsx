@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import { readTime } from "../../../utils/helper";
-import moment from "moment/moment";
+import moment from "moment";
 import SavedPost from "./Actions/SavedPost";
 import { Blog } from "../../../Context/Context";
 import Actions from "./Actions/Actions";
@@ -10,14 +11,14 @@ const PostsCard = ({ post }) => {
   const { currentUser } = Blog();
   const navigate = useNavigate();
 
-  if (!currentUser) {
-    return null; // Optionally handle if currentUser is not available
-  }
+  if (!currentUser) return null;
+
+  const handleNavigate = () => navigate(`/post/${postId}`);
 
   return (
     <section>
       <div
-        onClick={() => navigate(`/post/${postId}`)}
+        onClick={handleNavigate}
         className="flex flex-col sm:flex-row gap-4 cursor-pointer"
       >
         <div className="flex-[2.5]">
@@ -42,12 +43,12 @@ const PostsCard = ({ post }) => {
       </div>
       <div className="flex items-center justify-between w-full md:w-[70%] mt-[2rem] md:mt-0">
         <p className="text-xs text-gray-600">
-          {readTime({ __html: desc })} min read .
+          {readTime({ __html: desc })} min read .{" "}
           {moment(created).format("MMM DD")}
         </p>
         <div className="flex items-center gap-3">
           <SavedPost post={post} />
-          {currentUser?.uid === userId && (
+          {currentUser.uid === userId && (
             <Actions postId={postId} title={title} desc={desc} />
           )}
         </div>

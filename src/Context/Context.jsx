@@ -3,7 +3,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import useFetch from "../components/hooks/useFetch";
-import Loading from "../components/Loading/Loading";
 
 const BlogContext = createContext();
 
@@ -75,7 +74,7 @@ const Context = ({ children }) => {
         setAuthModel,
       }}
     >
-      {loading ? <Loading /> : children}
+      {loading ? <p>loading...</p> : children}
     </BlogContext.Provider>
   );
 };

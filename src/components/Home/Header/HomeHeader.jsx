@@ -9,14 +9,13 @@ import Search from "./Search";
 import Modal from "../../../utils/Modal";
 import UserModal from "./UserModal";
 import { Blog } from "../../../Context/Context";
-import Loading from "../../Loading/Loading";
+
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 import { toast } from "react-toastify";
 
 const HomeHeader = () => {
-  const { allUsers, userLoading, currentUser, setPublish, title, description } =
-    Blog();
+  const { allUsers, currentUser, setPublish, title, description } = Blog();
   const [modal, setModal] = useState(false);
   const [searchModal, setSearchModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -48,7 +47,6 @@ const HomeHeader = () => {
 
   return (
     <header className="border-b border-gray-200">
-      {userLoading && <Loading />}
       <div className="size h-[60px] flex items-center justify-between">
         {/* left side  */}
         <div className="flex items-center gap-3">

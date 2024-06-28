@@ -1,5 +1,4 @@
-import PropTypes from "prop-types"; // Import prop-types
-import Loading from "../../../Loading/Loading";
+import PropTypes from "prop-types";
 import PostsCard from "../../../Common/Posts/PostsCard";
 import { Blog } from "../../../../Context/Context";
 
@@ -18,7 +17,7 @@ const ProfileHome = ({ getUserData }) => {
         </p>
       )}
       {postLoading ? (
-        <Loading />
+        <p>Loading...</p>
       ) : (
         userPost &&
         userPost?.map((post, i) => <PostsCard post={post} key={i} />)

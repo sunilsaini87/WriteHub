@@ -1,7 +1,6 @@
 import PropTypes from "prop-types"; // Import prop-types
 import useSingleFetch from "../../../hooks/useSingleFetch";
 import { Blog } from "../../../../Context/Context";
-import Loading from "../../../Loading/Loading";
 import PostsCard from "../../../Common/Posts/PostsCard";
 import { BiLock } from "react-icons/bi";
 
@@ -23,7 +22,7 @@ const ProfileLists = ({ getUserData }) => {
             </p>
           )}
           {loading ? (
-            <Loading />
+            <p>LOading...</p>
           ) : (
             data && data?.map((post, i) => <PostsCard post={post} key={i} />)
           )}
